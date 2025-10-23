@@ -1,0 +1,125 @@
+[package]
+name = "catalog"
+version = "0.1.0"
+edition = "2021"
+authors = ["HyperMesh Team"]
+description = "Catalog - HyperMesh Asset Package Manager for catalog.hypermesh.online"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/hypermesh-online/catalog"
+keywords = ["assets", "hypermesh", "package-manager", "trustchain", "distributed"]
+
+[dependencies]
+# HyperMesh integration for consensus and asset management
+hypermesh = { path = "../hypermesh" }
+
+# Core async runtime
+tokio = { version = "1.38", features = ["full"] }
+async-trait = "0.1"
+futures = "0.3"
+
+# Scripting languages (library support only - no local execution)
+mlua = { version = "0.9", features = ["lua54", "async", "serialize"] }
+
+# Asset management
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+serde_yaml = "0.9"
+toml = { workspace = true }
+
+# Cryptography and hashing
+sha2 = "0.10"
+blake3 = "1.5"
+ring = "0.17"
+ed25519-dalek = { workspace = true }
+
+# Data structures
+dashmap = "6.0"
+arc-swap = "1.7"
+parking_lot = "0.12"
+
+# Error handling
+anyhow = "1.0"
+thiserror = "1.0"
+
+# Logging and metrics
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# File system and compression
+tar = { workspace = true }
+flate2 = { workspace = true }
+tempfile = "3.10"
+
+# Time and uuid
+chrono = { version = "0.4", features = ["serde"] }
+uuid = { version = "1.6", features = ["v4", "v5", "serde"] }
+
+# Configuration
+config = "0.14"
+
+# Template engine
+handlebars = { workspace = true }
+regex = "1.10"
+
+# HTTP client
+reqwest = { workspace = true }
+
+# Encoding utilities
+base64 = "0.22"
+hex = "0.4"
+
+# Path expansion
+shellexpand = { workspace = true }
+
+# Globbing
+glob = { workspace = true }
+
+# Additional dependencies for library module
+lazy_static = { workspace = true }
+bincode = "1.3"
+
+# Extension module dependencies
+semver = { workspace = true }
+
+# Dynamic loading support
+libloading = { workspace = true }
+
+# P2P Distribution dependencies
+quinn = "0.11"
+bytes = { version = "1.6", features = ["serde"] }
+zstd = { workspace = true }
+lz4 = { workspace = true }
+socket2 = "0.5"
+
+[build-dependencies]
+# No build dependencies needed
+
+[dev-dependencies]
+criterion = { version = "0.5", features = ["async_tokio", "html_reports"] }
+proptest = "1.4"
+tempfile = "3.10"
+
+[features]
+default = ["hypermesh-integration"]
+
+# HyperMesh integration features
+hypermesh-integration = []
+
+# Scripting support (template/config only - no execution)
+lua-scripting = []
+
+# TrustChain certificate support
+trustchain-support = []
+
+# Asset package management features
+asset-templates = []
+asset-validation = []
+
+[lib]
+name = "catalog"
+path = "src/lib.rs"
+crate-type = ["cdylib", "rlib"]
+
+
+# Profiles are managed at workspace level
+
